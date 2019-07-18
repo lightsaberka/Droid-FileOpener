@@ -21,7 +21,9 @@ namespace FileOpener.Droid.Views.Main
         {
             base.OnCreate(bundle);
 
-            this._saver.SaveFiles();
+            this._saver.SaveFiles(PlaceEnum.FILES);
+            this._saver.SaveFiles(PlaceEnum.CACHE);
+            this._saver.SaveFiles(PlaceEnum.OUTSIDE);
 
             this.SetContentView(Resource.Layout.activity_main_container);
 

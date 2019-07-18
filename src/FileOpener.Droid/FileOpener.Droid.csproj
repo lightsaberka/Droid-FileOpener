@@ -66,6 +66,7 @@
     <Compile Include="MainApplication.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="Utilities\Opener.cs" />
+    <Compile Include="Utilities\PlaceEnum.cs" />
     <Compile Include="Utilities\Saver.cs" />
     <Compile Include="Views\Main\MainActivity.cs" />
     <Compile Include="Views\Splash\SplashActivity.cs" />
