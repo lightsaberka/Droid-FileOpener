@@ -24,7 +24,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="hello.txt"
-                android:onClick="OpenHello"
                 android:textColor="@color/secondaryTextColor"
                 android:backgroundTint="@color/oppositeColor" />
 
@@ -33,7 +32,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="reddit.png"
-                android:onClick="OpenReddit"
                 android:textColor="@color/secondaryTextColor"
                 android:backgroundTint="@color/oppositeColor" />
 
@@ -42,7 +40,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="t-rex.jpg"
-                android:onClick="OpenTrex"
                 android:textColor="@color/secondaryTextColor"
                 android:backgroundTint="@color/oppositeColor" />
 
@@ -51,7 +48,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="rocket.pdf"
-                android:onClick="OpenRocket"
                 android:textColor="@color/secondaryTextColor"
                 android:backgroundTint="@color/oppositeColor" />
 

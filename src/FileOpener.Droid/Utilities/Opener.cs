@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using Android.Content;
 using Android.Content.PM;
 using Android.Net;
@@ -15,33 +16,36 @@ namespace FileOpener.Droid.Utilities
     {
         public void OpenFile(string myFile)
         {
-            var intent = new Intent(Intent.ActionEdit);
             Context myContext = Android.App.Application.Context;
-            var file = new File(myFile);
 
-            Uri path = FileProvider.GetUriForFile(myContext, myContext.PackageName + ".fileprovider", file);
+            var file = new File(myContext.FilesDir.Path, myFile);
+            Debug.WriteLine("path to file: " + myContext.FilesDir.Path);
 
-            intent.SetDataAndType(path, MimeTypesMap.GetMimeType(myFile));
+            var path = FileProvider.GetUriForFile(myContext, myContext.PackageName + ".fileprovider", file);
+            Debug.WriteLine("path to read: " + path);
 
+            var intent = new Intent(Intent.ActionView);
             intent.AddFlags(ActivityFlags.GrantReadUriPermission | ActivityFlags.GrantWriteUriPermission);
-            intent.AddFlags(ActivityFlags.NoHistory);
-            intent.AddFlags(ActivityFlags.ClearWhenTaskReset | ActivityFlags.NewTask);
 
             IList<ResolveInfo> resolveList = myContext.PackageManager.QueryIntentActivities(intent, PackageInfoFlags.MatchDefaultOnly);
-
             foreach (ResolveInfo resolveInfo in resolveList)
             {
                 var packageName = resolveInfo.ActivityInfo.PackageName;
                 myContext.GrantUriPermission(packageName, path, ActivityFlags.GrantReadUriPermission | ActivityFlags.GrantWriteUriPermission);
             }
 
+            intent.SetDataAndType(path, MimeTypesMap.GetMimeType(myFile));
+            intent.AddFlags(ActivityFlags.NoHistory);
+            intent.AddFlags(ActivityFlags.ClearWhenTaskReset | ActivityFlags.NewTask);
+
+            
             try
             {
                 myContext.StartActivity(intent);
             }
             catch (Exception e)
             {
-                Toast.MakeText(myContext, "Error: " + e, ToastLength.Long);
+                Debug.WriteLine("Error: " + e);
             }
         }
     }

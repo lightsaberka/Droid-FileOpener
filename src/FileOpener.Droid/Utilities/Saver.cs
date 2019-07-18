@@ -20,17 +20,17 @@ namespace FileOpener.Droid.Utilities
             foreach (var item in itemsInRoot)
             {
                 var path = Path.Combine(myContext.FilesDir.Path, item);
-                Debug.WriteLine("path: " + path);
+                Debug.WriteLine("path to store: " + path);
 
-                using (StreamReader streamReader = new StreamReader(assets.Open("Examples/" + item)))
+                using (var reader = new StreamReader(assets.Open("Examples/" + item)))
                 {
-                    streamReader.ReadToEnd();
-
-                    using (Stream stream = File.Create(path))
+                    using (var memstream = new MemoryStream())
                     {
-                        streamReader.BaseStream.CopyTo(stream);
-                    }
+                        reader.BaseStream.CopyTo(memstream);
+                        byte[] bytes = memstream.ToArray();
 
+                        File.WriteAllBytes(path, bytes);
+                    }
                 }
             }
         }
