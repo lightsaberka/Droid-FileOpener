@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Android.Content;
 using Android.Content.PM;
+using Android.Net;
 using Android.Support.V4.Content;
 using HeyRed.Mime;
 using Java.IO;
@@ -12,14 +13,16 @@ namespace FileOpener.Droid.Utilities
 {
     public class Opener
     {
-        public void OpenFile(string myFile)
+        public void OpenFile(string myFile, PlaceEnum where)
         {
             Context myContext = Android.App.Application.Context;
 
-            var file = new File(myContext.FilesDir.Path, myFile);
-            Debug.WriteLine("path to file: " + myContext.FilesDir.Path);
+            var place = (where == PlaceEnum.CACHE ? myContext.CacheDir.Path : myContext.FilesDir.Path);
+           
+            var file = new File(place, myFile);
+            Debug.WriteLine("path to file: " + place);
 
-            var path = FileProvider.GetUriForFile(myContext, myContext.PackageName + ".fileprovider", file);
+            Uri path = FileProvider.GetUriForFile(myContext, myContext.PackageName + ".fileprovider", file);
             Debug.WriteLine("path to read: " + path);
 
             var intent = new Intent(Intent.ActionView);
@@ -36,7 +39,6 @@ namespace FileOpener.Droid.Utilities
             intent.AddFlags(ActivityFlags.NoHistory);
             intent.AddFlags(ActivityFlags.ClearWhenTaskReset | ActivityFlags.NewTask);
 
-            
             try
             {
                 myContext.StartActivity(intent);

@@ -53,8 +53,11 @@ namespace FileOpener.Droid.Utilities
 
             var place = Environment.ExternalStorageDirectory.AbsoluteFile + "/Examples";
             var folder = new Java.IO.File(place);
-            Files.CreateDirectory(folder.ToPath());
 
+            if (!folder.Exists()) {
+                Files.CreateDirectory(folder.ToPath());
+            }
+            
             var itemsInRoot = assets.List("Examples");
 
             foreach (var item in itemsInRoot)
