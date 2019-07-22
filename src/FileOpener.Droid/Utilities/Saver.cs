@@ -11,71 +11,46 @@ namespace FileOpener.Droid.Utilities
 {
     public class Saver
     {
-        public void SaveFiles(PlaceEnum where)
+        public void SaveFile(string file, PlaceEnum where)
         {
             Context myContext = Application.Context;
             AssetManager assets = myContext.Assets;
 
             var place = myContext.FilesDir.Path;
 
-            if (where == PlaceEnum.OUTSIDE) {
-                this.SaveFilesOutside();
-            }
-            else {
-                place = (where == PlaceEnum.FILES ? myContext.FilesDir.Path : myContext.CacheDir.Path);
+            switch (where)
+            {
+                case PlaceEnum.FILES:
+                    place = myContext.FilesDir.Path;
+                    break;
 
-                var itemsInRoot = assets.List("Examples");
+                case PlaceEnum.CACHE:
+                    place = myContext.CacheDir.Path;
+                    break;
 
-                foreach (var item in itemsInRoot)
-                {
-                    var path = Path.Combine(place, item);
-                    Debug.WriteLine("path to store: " + path);
+                case PlaceEnum.OUTSIDE:
+                    place = Environment.ExternalStorageDirectory.AbsoluteFile + "/Examples";
 
-                    using (var reader = new StreamReader(assets.Open("Examples/" + item)))
-                    {
-                        using (var memstream = new MemoryStream())
-                        {
-                            reader.BaseStream.CopyTo(memstream);
-                            byte[] bytes = memstream.ToArray();
-
-                            File.WriteAllBytes(path, bytes);
-                        }
+                    var folder = new Java.IO.File(place);
+                    if (!folder.Exists()) {
+                        Files.CreateDirectory(folder.ToPath());
                     }
+                    break;
+            }
+
+            var path = Path.Combine(place, file);
+            Debug.WriteLine("path to store: " + path);
+
+            using (var streamReader = new StreamReader(assets.Open("Examples/" + file)))
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    streamReader.BaseStream.CopyTo(memoryStream);
+                    byte[] bytes = memoryStream.ToArray();
+
+                    File.WriteAllBytes(path, bytes);
                 }
             } 
-        }
-
-
-        private void SaveFilesOutside()
-        {
-            Context myContext = Application.Context;
-            AssetManager assets = myContext.Assets;
-
-            var place = Environment.ExternalStorageDirectory.AbsoluteFile + "/Examples";
-            var folder = new Java.IO.File(place);
-
-            if (!folder.Exists()) {
-                Files.CreateDirectory(folder.ToPath());
-            }
-            
-            var itemsInRoot = assets.List("Examples");
-
-            foreach (var item in itemsInRoot)
-            {
-                var path = Path.Combine(place, item);
-                Debug.WriteLine("path to outside: " + path);
-
-                using (var reader = new StreamReader(assets.Open("Examples/" + item)))
-                {
-                    using (var memstream = new MemoryStream())
-                    {
-                        reader.BaseStream.CopyTo(memstream);
-                        byte[] bytes = memstream.ToArray();
-
-                        File.WriteAllBytes(path, bytes);
-                    }
-                }
-            }
         }
     }
 }

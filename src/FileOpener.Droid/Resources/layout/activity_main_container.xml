@@ -23,15 +23,7 @@
                 android:id="@+id/button_hello"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="hello.txt"
-                android:textColor="@color/secondaryTextColor"
-                android:backgroundTint="@color/oppositeColor" />
-
-            <Button
-                android:id="@+id/button_reddit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="reddit.png"
+                android:text="open from file"
                 android:textColor="@color/secondaryTextColor"
                 android:backgroundTint="@color/oppositeColor" />
 
@@ -39,7 +31,7 @@
                 android:id="@+id/button_trex"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="t-rex.jpg"
+                android:text="open from cache"
                 android:textColor="@color/secondaryTextColor"
                 android:backgroundTint="@color/oppositeColor" />
 
@@ -47,7 +39,7 @@
                 android:id="@+id/button_rocket"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="rocket.pdf"
+                android:text="open from outside"
                 android:textColor="@color/secondaryTextColor"
                 android:backgroundTint="@color/oppositeColor" />
 

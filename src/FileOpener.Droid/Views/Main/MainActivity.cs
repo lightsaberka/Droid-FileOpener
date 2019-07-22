@@ -21,22 +21,19 @@ namespace FileOpener.Droid.Views.Main
         {
             base.OnCreate(bundle);
 
-            this._saver.SaveFiles(PlaceEnum.FILES);
-            this._saver.SaveFiles(PlaceEnum.CACHE);
-            this._saver.SaveFiles(PlaceEnum.OUTSIDE);
+            this._saver.SaveFile("hello.txt", PlaceEnum.FILES);
+            this._saver.SaveFile("trex.jpg", PlaceEnum.CACHE);
+            this._saver.SaveFile("rocket.pdf", PlaceEnum.OUTSIDE);
 
             this.SetContentView(Resource.Layout.activity_main_container);
 
             var helloButton = (Button) this.FindViewById(Resource.Id.button_hello);
-            var redditButton = (Button) this.FindViewById(Resource.Id.button_reddit);
             var rocketButton = (Button) this.FindViewById(Resource.Id.button_rocket);
             var trexButton = (Button) this.FindViewById(Resource.Id.button_trex);
 
             helloButton.Click += (sender, e) => { this._opener.OpenFile("hello.txt", PlaceEnum.FILES); };
-            redditButton.Click += (sender, e) => { this._opener.OpenFile("reddit.png", PlaceEnum.FILES); };
-            rocketButton.Click += (sender, e) => { this._opener.OpenFile("rocket.pdf", PlaceEnum.FILES); };
             trexButton.Click += (sender, e) => { this._opener.OpenFile("trex.jpg", PlaceEnum.CACHE); };
-
+            rocketButton.Click += (sender, e) => { this._opener.OpenFile("rocket.pdf", PlaceEnum.OUTSIDE); };
         }
     }
 }
