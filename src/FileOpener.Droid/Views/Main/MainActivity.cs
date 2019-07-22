@@ -32,10 +32,10 @@ namespace FileOpener.Droid.Views.Main
             var rocketButton = (Button) this.FindViewById(Resource.Id.button_rocket);
             var trexButton = (Button) this.FindViewById(Resource.Id.button_trex);
 
-            helloButton.Click += (sender, e) => { this._opener.OpenFile("hello.txt", PlaceEnum.CACHE); };
+            helloButton.Click += (sender, e) => { this._opener.OpenFile("hello.txt", PlaceEnum.FILES); };
             redditButton.Click += (sender, e) => { this._opener.OpenFile("reddit.png", PlaceEnum.FILES); };
-            rocketButton.Click += (sender, e) => { this._opener.OpenFile("rocket.pdf", PlaceEnum.CACHE); };
-            trexButton.Click += (sender, e) => { this._opener.OpenFile("trex.jpg", PlaceEnum.FILES); };
+            rocketButton.Click += (sender, e) => { this._opener.OpenFile("rocket.pdf", PlaceEnum.FILES); };
+            trexButton.Click += (sender, e) => { this._opener.OpenFile("trex.jpg", PlaceEnum.CACHE); };
 
         }
     }
